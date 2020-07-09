@@ -7,7 +7,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 const passport = require('passport');
-
+const passportsetup = require('./config/passport-setup');
 
 
 app.set('views', path.join(__dirname, 'views'));
@@ -30,6 +30,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash())
+
+const usersRoutes = require('./routes/user-routes');
+app.use('/users',usersRoutes);
 
 app.get('/', (req, res) => {
     res.render("index");
