@@ -6,7 +6,13 @@
             <h1 class="display-4">Profile </h1>
             <hr>
        
-            <%- include('../partials/flashMessages') -%>      
+            <%- include('../partials/flashMessages') -%>    
+
+            <p>
+                <% if (user) { %>
+                        Welcome your email <%= user.email %>
+                <% } %>
+            </p>   
             
         </div>
     </div>

@@ -8,13 +8,18 @@ const passport = require('passport')
 
 //login user
 router.get('/login', (req,res)=> {
-    res.render('users/login')
+    res.render('users/login', {
+        error: req.flash('error')
+    })
 })
 
 // login post request 
-router.post('/login', (req,res)=> {
-    res.json('login in user ...')
-})
+router.post('/login',
+    passport.authenticate('local.login', {
+    successRedirect: '/users/profile',
+    failureRedirect: '/users/login',
+    failureFlash: true })
+)
 
 //sign up user
 router.get('/signup', (req,res)=> {
@@ -31,9 +36,8 @@ router.post('/signup',
 
 //profile
 router.get('/profile', (req,res)=> {
-    res.render('users/profile')
+    res.render('users/profile', {success: req.flash('success')})
 })
-
 
 //logout user
 router.get('/logout', (req,res)=> {
