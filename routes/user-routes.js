@@ -6,6 +6,13 @@ const User = require('../models/user');
 
 const passport = require('passport')
 
+// middleware to check if user is loogged in
+
+isAuthenticated = (req,res,next) => {
+    if (req.isAuthenticated()) return next()
+    res.redirect('/users/login')
+}
+
 //login user
 router.get('/login', (req,res)=> {
     res.render('users/login', {
@@ -35,13 +42,16 @@ router.post('/signup',
 }))
 
 //profile
-router.get('/profile', (req,res)=> {
+router.get('/profile', isAuthenticated,(req,res)=> {
     res.render('users/profile', {success: req.flash('success')})
 })
 
 //logout user
 router.get('/logout', (req,res)=> {
-    res.json("logout...")
+    req.logout();
+    res.redirect('/users/login')
 })
+
+module.exports = router;
 
 module.exports = router;
