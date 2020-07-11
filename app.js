@@ -40,9 +40,16 @@ app.get('*', (req, res, next) => {
 const usersRoutes = require('./routes/user-routes');
 app.use('/users',usersRoutes);
 
+const servicesRoutes = require('./routes/service-routes');
+app.use('/services',servicesRoutes);
+
+
 app.get('/', (req, res) => {
-    res.render("index");
+    res.redirect("/services");
 } )
+/*app.get('/', (req, res) => {
+    res.render("index");
+} )*/
 
 const Port = 3000;
 app.listen(Port, (req,res) => {
