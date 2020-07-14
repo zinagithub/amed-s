@@ -51,7 +51,7 @@ let arrWilaya = [
         nomwilaya: " Jijel"
     }),
     new Wilaya({
-        nomwilaya: " Sétif"
+        nomwilaya: "Sétif"
     }),
     new Wilaya({
         nomwilaya: "Saïda"

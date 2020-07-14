@@ -45,7 +45,7 @@
         </li>
         <% } else {%>  
           <li class="nav-item">
-            <a class="nav-link" href="/users/logout"><%= user.email+" " %> Logout</a>
+            <a class="nav-link" href="/users/logout"><%= locals.user.email+" " %> Logout</a>
           </li>
           <% } %>
       </ul>

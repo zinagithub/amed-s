@@ -13,12 +13,11 @@ const serviceSchema = new mongoose.Schema({
         required: true
     },
     wilaya: {
-        type: String,
-        required: true
+        type: String
     }, 
     commune: {
         type: String,
-        required:true
+
     },
     telephone: {
         type: String,
@@ -46,8 +45,21 @@ const serviceSchema = new mongoose.Schema({
     },
     created_at: {
         type: Date,
-        required: true
-    } 
+        required: true,
+        default: Date.now
+    },
+    status: {
+        type: String
+        //enum: ['Pending', 'Rejected', 'Accepted'], default: 'Pending'
+    },
+    genre: {
+        type: String
+        //enum: ['Medecin', 'Paramedical', 'Pharmacie','Parapharmacie',"Labo d'Analyse",'Clinique'], default: ''
+    },
+    specialite: {
+        type: String
+    }
+ 
 });
 
 let Service = mongoose.model('Services', serviceSchema, 'services');

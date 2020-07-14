@@ -7,7 +7,52 @@
         <h1 class = "display-4">Ajout d'un nouveau service : </h1>
         <hr>
         <%- include('../partials/flashMessages'); -%>
-        <form action="/services/create" method="post"> 
+        <form action="/services/save" method="post"> 
+ 
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="wilaya">Wilaya</label>
+                    <input type="text" class="form-control" name = "wilaya" value= <%= infowil[1] %>>
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="commune">Commune</label>
+                    
+                    <select name ="commune" class="form-control" >
+                    <% communes.forEach(com => { %>    
+                        <option value=<%= com._id %>><%= com.nomcommune %></option>  
+                    <% });%>      
+                    </select>
+                   
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="service">Service</label>
+                    
+                    <select name="service" class="form-control" >
+                        <option value="Medecin" >Medecin</option> 
+                        <option value="Pharmacie" >Pharmacie</option>
+                        <option value="Parapharmacie" >Parapharmacie</option>
+                        <option value="Labo d'Analyse" >Labo d'Analyse</option>
+                        <option value="Clinique" >Clinique</option>
+                        <option value="Paramedical" >Paramedical</option>    
+                    </select>
+                   
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="spec">Spécialité</label>
+                        
+                    <select name="spec" class="form-control" >
+                        <option value="Pédiatrie" >Pédiatrie</option>
+                        <option value="Dermatologie" >Dermatologie</option>
+                        <option value="Cardiologie" >Cardiologie</option>
+                        <option value="Genécologue" >Genécologue</option>
+                    </select>
+                   
+                </div>
+                
+            </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="nom">Nom</label>
@@ -24,21 +69,7 @@
                 <input type="text" class="form-control" id="adresse" name="adresse">
             </div>
             
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="wilaya">Wilaya</label>
-                    <input type="text" class="form-control" name = "wilaya" value= <%= infowil[1] %> disabled>
-
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="commune">Commune</label>
-                    <select id="commune" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                    </select>
-
-                </div>
-            </div>
+            
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="tel">Téléphone</label>
