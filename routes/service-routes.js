@@ -24,7 +24,19 @@ isAuthenticated = (req,res,next) => {
 router.get('/', (req,res)=> {
     res.render('services/index')
 })
+router.get('/showall', (req,res)=> {
+    Service.find({genre:"Medecin"}, (err,services) => {
+        let arrServices = [];
+        let arrSize = 3;
+        for(var i = 0;i < services.length; i+=arrSize) {
+            arrServices.push(services.slice(i, arrSize+i))
+        }
+        res.render('services/show-service', { arrServices: arrServices})
+        //res.send(arrServices)
+    })
 
+    //res.render('services/show-service')
+})
 router.get('/create', isAuthenticated, (req,res)=> {
    // res.render("services/create")
    Wilayas.find({}, (err,wilayas) => {
@@ -65,6 +77,9 @@ console.log(errors)
     
   }else {
     //res.send(req.body)
+        if (req.body.service != 'Medecin'){
+            req.body.spec = ""
+        }
          let newService = new Service({
         nom: req.body.nom,
         prenom: req.body.prenom,

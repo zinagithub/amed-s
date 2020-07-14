@@ -1,0 +1,28 @@
+
+<%- include('../partials/header'); -%>
+<%- include('../partials/navbar'); -%>
+
+<div class="container">
+    <% arrServices.forEach( service => { %> 
+        <div class="row mt-3">
+            <% service.forEach( srv => { %> 
+                <div class="col-sm-6 col-md-4">
+                    <div class="card">
+                        
+                        <div class="card-body">
+                          <h5 class="card-title"><%= srv.nom %> <%= srv.prenom %></h5>
+                          <p class="card-text"><%= srv.description %></p>
+                          <p class="card-text"><%= srv.specialite %></p>
+                          <a href="<%= '/services/'+srv.id ; %>" class="btn btn-primary">Show more</a>
+                        </div>
+                      </div>
+                </div> 
+            <% }); %>
+        </div>
+    <% }); %>
+
+    
+</div>
+
+<%- include('../partials/footer'); -%>
+    
