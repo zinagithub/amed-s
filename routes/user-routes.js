@@ -6,6 +6,22 @@ const User = require('../models/user');
 
 const passport = require('passport')
 
+var multer  = require('multer')
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/images')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, file.fieldname + '-' + uniqueSuffix + '.png')
+    }
+  })
+  
+  var upload = multer({ storage: storage })
+
+
+
 // middleware to check if user is loogged in
 
 isAuthenticated = (req,res,next) => {
@@ -52,4 +68,15 @@ router.get('/logout', (req,res)=> {
     res.redirect('/users/login')
 })
 
+
+router.post('/uploadAvatar',upload.single('avatar'), (req,res)=> {
+    let newFields = {
+        avatar: req.file.filename
+    }
+    User.updateOne({_id: req.user._id}, newFields,(err) => {
+        if (!err){
+            res.redirect('/users/profile')
+        }
+    })
+})
 module.exports = router;

@@ -2,7 +2,14 @@
 <%- include('../partials/navbar') -%>
 <div class="container">
     <div class="row mt-4">
-        <div class="col-md-9 offset-md-3">
+        <div class="col-md-3">
+            <% if(user.avatar)  {%>
+            <img src= <%= '/images/'+user.avatar %> class = "img-fluid " alt="Default avatar">
+            <% }else  {%>
+                <img src= '/images/profile.png' class = "img-fluid " alt="Default avatar">
+            <% } %>    
+        </div>
+        <div class="col-md-9">
             <h1 class="display-4">Profile </h1>
             <hr>
        
@@ -13,7 +20,10 @@
                         Welcome your email <%= user.email %>
                 <% } %>
             </p>   
-            
+            <form action="/users/uploadAvatar" method="post" enctype="multipart/form-data">
+                <input type="file" name="avatar" id="avatar" />
+                <button type= "submit" class = "btn btn-primary">Upload</button>
+            </form>  
         </div>
     </div>
 </div>
