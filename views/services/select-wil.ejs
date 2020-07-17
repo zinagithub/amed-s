@@ -7,8 +7,8 @@
         <h1 class = "display-4">Selectionnez une Wilaya : </h1>
         <hr>
         <%- include('../partials/flashMessages'); -%>
-        <form action="/services/create" method="post"> 
-            
+        <!--form action="/services/create" method="post"--> 
+        <form action=<%= path %> method="post">    
                 
                 <div class="form-row">
                     <% wilayas.forEach(wil => { %>

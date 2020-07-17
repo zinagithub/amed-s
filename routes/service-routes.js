@@ -24,24 +24,111 @@ isAuthenticated = (req,res,next) => {
 router.get('/', (req,res)=> {
     res.render('services/index')
 })
-router.get('/showall', (req,res)=> {
-    Service.find({genre:"Medecin"}, (err,services) => {
+router.get('/medecins', (req,res)=> {
+    /*Service.find({genre:"Medecin"}, (err,services) => {
         let arrServices = [];
         let arrSize = 3;
         for(var i = 0;i < services.length; i+=arrSize) {
             arrServices.push(services.slice(i, arrSize+i))
         }
         res.render('services/show-service', { arrServices: arrServices})
-        //res.send(arrServices)
-    })
+        
+    })*/
 
     //res.render('services/show-service')
-})
-router.get('/create', isAuthenticated, (req,res)=> {
-   // res.render("services/create")
+
+    let path = "/services/show-doctors";
    Wilayas.find({}, (err,wilayas) => {
     
-    res.render('services/select-wil', { wilayas: wilayas})
+    res.render('services/select-wil', { wilayas: wilayas, path: path})
+
+})
+})
+
+router.post("/show-doctors/:pageNo?", (req,res)=> {
+    let infowil = req.body.wilaya.split('+');
+    /*res.locals.infowil = infowil;
+    console.log("infowil:"+res.locals.infowil)*/
+    let pageNo = 1;
+    if (req.params.pageNo){
+        pageNo = parseInt(req.params.pageNo)
+    }
+    if (req.params.pageNo==0) {
+        pageNo = 1
+    }
+    
+    let q = {
+        skip: 5 * (pageNo - 1),
+        limit: 5
+    }
+    //find total records or documents
+    let totalDocs = 0;
+    Service.countDocuments({}, (err,total)=> {
+
+    }).then ((response)=>{
+        totalDocs = parseInt(response);
+    Service.find({genre:"Medecin", wilaya: infowil[1]},{},q, (err,services) => {
+        let arrServices = [];
+        let arrSize = 3;
+        for(var i = 0;i < services.length; i+=arrSize) {
+            arrServices.push(services.slice(i, arrSize+i))
+        }
+        res.render('services/show-service', { 
+            arrServices: arrServices,
+            message: req.flash('info'),
+            total: totalDocs,
+            pageNo: pageNo,
+            path: "/services/show-doctors/"+infowil[1]+"/"
+        })
+    });
+}) 
+})
+
+
+router.get("/show-doctors/:infowil/:pageNo?", (req,res)=> {
+    let infowil = req.params.infowil
+    let pageNo = 1;
+    if (req.params.pageNo){
+        pageNo = parseInt(req.params.pageNo)
+    }
+    if (req.params.pageNo==0) {
+        pageNo = 1
+    }
+    
+    let q = {
+        skip: 5 * (pageNo - 1),
+        limit: 5
+    }
+    //find total records or documents
+    let totalDocs = 0;
+    Service.countDocuments({}, (err,total)=> {
+
+    }).then ((response)=>{
+        totalDocs = parseInt(response);
+    Service.find({genre:"Medecin", wilaya: infowil},{},q, (err,services) => {
+        
+        let arrServices = [];
+        let arrSize = 3;
+        for(var i = 0;i < services.length; i+=arrSize) {
+            arrServices.push(services.slice(i, arrSize+i))
+        }
+        res.render('services/show-service', { 
+            arrServices: arrServices,
+            message: req.flash('info'),
+            total: totalDocs,
+            pageNo: pageNo,
+            path: "/services/show-doctors/"+infowil+"/"
+        })
+    });
+}) 
+})
+
+router.get('/create', isAuthenticated, (req,res)=> {
+   // res.render("services/create")
+   let path = "/services/create";
+   Wilayas.find({}, (err,wilayas) => {
+    
+    res.render('services/select-wil', { wilayas: wilayas, path: path})
 })
    
 })
