@@ -10,6 +10,11 @@
                     <div class="card">
                         
                         <div class="card-body">
+                            <% if (srv.avatar) {%>  
+                             <img src="<%= '/images/'+srv.avatar; %>" alt="" width="50" height="50">  
+                             <% }else  {%>
+                                <img src="/images/profile.png" alt="" width="50" height="50">
+                             <% } %>    
                           <h5 class="card-title"><%= srv.nom %> <%= srv.prenom %></h5>
                           <p class="card-text"><%= srv.description %></p>
                           <p class="card-text"><%= srv.specialite %></p>

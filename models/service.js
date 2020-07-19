@@ -58,7 +58,10 @@ const serviceSchema = new mongoose.Schema({
     },
     specialite: {
         type: String
-    }
+    },
+    avatar: {
+        type: String
+    } 
  
 });
 

@@ -13,6 +13,7 @@ const Service = require('../models/service');
 const Wilayas = require('../models/wilaya');
 
 const Communes = require('../models/communes');
+const User = require('../models/user');
 
 // middleware to check if user is loogged in
 
@@ -25,30 +26,18 @@ router.get('/', (req,res)=> {
     res.render('services/index')
 })
 router.get('/medecins', (req,res)=> {
-    /*Service.find({genre:"Medecin"}, (err,services) => {
-        let arrServices = [];
-        let arrSize = 3;
-        for(var i = 0;i < services.length; i+=arrSize) {
-            arrServices.push(services.slice(i, arrSize+i))
-        }
-        res.render('services/show-service', { arrServices: arrServices})
-        
-    })*/
-
-    //res.render('services/show-service')
-
-    let path = "/services/show-doctors";
-   Wilayas.find({}, (err,wilayas) => {
     
-    res.render('services/select-wil', { wilayas: wilayas, path: path})
+    let path = "/services/show-doctors";
+    Wilayas.find({}, (err,wilayas) => {
+    
+        res.render('services/select-wil', { wilayas: wilayas, path: path})
 
 })
 })
 
 router.post("/show-doctors/:pageNo?", (req,res)=> {
     let infowil = req.body.wilaya.split('+');
-    /*res.locals.infowil = infowil;
-    console.log("infowil:"+res.locals.infowil)*/
+    
     let pageNo = 1;
     if (req.params.pageNo){
         pageNo = parseInt(req.params.pageNo)
@@ -73,6 +62,7 @@ router.post("/show-doctors/:pageNo?", (req,res)=> {
         for(var i = 0;i < services.length; i+=arrSize) {
             arrServices.push(services.slice(i, arrSize+i))
         }
+        
         res.render('services/show-service', { 
             arrServices: arrServices,
             message: req.flash('info'),
@@ -124,7 +114,7 @@ router.get("/show-doctors/:infowil/:pageNo?", (req,res)=> {
 })
 
 router.get('/create', isAuthenticated, (req,res)=> {
-   // res.render("services/create")
+   
    let path = "/services/create";
    Wilayas.find({}, (err,wilayas) => {
     
@@ -151,10 +141,6 @@ router.post('/save',isAuthenticated, [
 ] , (req,res)  => {
 
 const errors = validationResult(req);
-//res.send(req.body)
-//res.locals.user = req.user || null;
-console.log("user: ", req.user)
-console.log(errors)
   if (!errors.isEmpty()) {
     
    req.flash('errors', errors.array())
@@ -163,7 +149,7 @@ console.log(errors)
    
     
   }else {
-    //res.send(req.body)
+    
         if (req.body.service != 'Medecin'){
             req.body.spec = ""
         }
@@ -182,10 +168,11 @@ console.log(errors)
         specialite: req.body.spec,
         genre: req.body.service,
         user_id: req.user.id,
+        avatar:req.user.avatar,
         created_at: Date.now()
     })
     
-    //console.log(newService)
+    
     newService.save( err => {
         if (!err){
             console.log('Service saved');
