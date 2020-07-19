@@ -115,11 +115,18 @@ router.get("/show-doctors/:infowil/:pageNo?", (req,res)=> {
 
 router.get('/create', isAuthenticated, (req,res)=> {
    
-   let path = "/services/create";
-   Wilayas.find({}, (err,wilayas) => {
-    
-    res.render('services/select-wil', { wilayas: wilayas, path: path})
-})
+    Service.findOne({user_id: req.user.id}, (err, serv)=> {
+        
+        if (!serv){
+            let path = "/services/create";
+            Wilayas.find({}, (err,wilayas) => {
+                res.render('services/select-wil', { wilayas: wilayas, path: path})
+            })
+        }else{
+            res.redirect('/')
+        }
+    })
+   
    
 })
 
