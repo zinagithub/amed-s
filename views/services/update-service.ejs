@@ -1,0 +1,134 @@
+<%- include('../partials/header'); -%>
+<%- include('../partials/navbar'); -%>
+
+<div class="container">
+    <div class="row mt-3">
+    <div class="col-md-9 offset-md-3">
+        <h1 class = "display-4">Update Service: </h1>
+        <hr>
+        <%- include('../partials/flashMessages'); -%>
+
+        <form action="/services/update" method="post"> 
+            <input type="hidden" class="form-control" id="id" name="id" value="<%= service.id %>" >
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="wilaya">Wilaya</label>
+                    <select name ="commune" class="form-control" >
+                        <% wilayas.forEach(wil => { %>  
+                            <% if (wil.nomwilaya == service.wilaya) {%> 
+                                <option value=<%= wil.nomwilaya %> selected><%= wil.wilaya %></option>
+                            <% }else {%>         
+                                <option value=<%= wil.nomwilaya %>><%= wil.wilaya %></option>  
+                            <% }%>
+                        <% });%>      
+                        </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="commune">Commune</label>
+                    
+                    <select name ="commune" class="form-control" >
+                    <% communes.forEach(com => { %>
+                        <% if (com.nomcommune == service.commune) {%> 
+                            <option value=<%= com._id %> selected><%= com.nomcommune %></option>
+                        <% }else {%>    
+                            <option value=<%= com._id %>><%= com.nomcommune %></option>  
+                        <% }%>    
+                    <% });%>      
+                    </select>
+                   
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="service">Service</label>
+                    
+                    <select name="service" class="form-control" >
+                        <option value="Medecin" >Medecin</option> 
+                        <option value="Pharmacie" >Pharmacie</option>
+                        <option value="Parapharmacie" >Parapharmacie</option>
+                        <option value="Labo d'Analyse" >Labo d'Analyse</option>
+                        <option value="Clinique" >Clinique</option>
+                        <option value="Paramedical" >Paramedical</option>    
+                    </select>
+                   
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="spec">Spécialité</label>
+                        
+                    <select name="spec" class="form-control" >
+                        <option value="Pédiatrie" >Pédiatrie</option>
+                        <option value="Dermatologie" >Dermatologie</option>
+                        <option value="Cardiologie" >Cardiologie</option>
+                        <option value="Genécologue" >Genécologue</option>
+                    </select>
+                   
+                </div>
+                
+            </div>
+            
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="nom">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" value = <%= service.nom %>>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="prenom">Prenom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" value = <%= service.prenom %>>
+                </div>
+            </div>
+     
+            <div class="form-group">
+                <label for="adresse">Adresse</label>
+                <input type="text" class="form-control" id="adresse" name="adresse" value = <%= service.Adresse %>>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="tel">Téléphone</label>
+                    <input type="text" class="form-control" id="tel" name="tel" value = <%= service.telephone %>>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="mobile">Mobile</label>
+                    <input type="text" class="form-control" id="mobile" name="mobile" value = <%= service.mobile %>>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="site">Site Web</label>
+                    <input type="text" class="form-control" id="site" name="site" value = <%= service.siteweb %>>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="facebook">Facebook</label>
+                    <input type="text" class="form-control" id="facebook" name="facebook" value = <%= service.facebook %>>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="twitter">Twitter</label>
+                    <input type="text" class="form-control" id="twitter" name="twitter" value = <%= service.twitter %>>
+                </div>
+            </div>
+            
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description"  rows="4" class="form-control"><%= service.description %></textarea>
+            </div>
+              
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+        </form>
+    </div>
+</div>
+</div>  
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+<script src="/axios/dist/axios.min.js"></script>
+<script src="/jquery/dist/jquery.min.js"></script>
+
+<script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

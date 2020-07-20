@@ -13,6 +13,7 @@ const Service = require('../models/service');
 const Wilayas = require('../models/wilaya');
 
 const Communes = require('../models/communes');
+
 const User = require('../models/user');
 
 // middleware to check if user is loogged in
@@ -227,16 +228,30 @@ router.get('/edit/:id',(req, res) =>{
 
 router.get('/update/:id',(req, res) =>{
     Service.findOne({_id: req.params.id}, (err, service)=> {
-        if(!err){
-            res.render('services/update-service', 
-            { service: service,
-                errors: req.flash('errors'),
-                message: req.flash('info')
+        
+       Wilayas.find({}, (err,wilayas) => {
+          if (!err){
+            Communes.find({}, (err,communes) => {
+                if(!err){
+                    res.render('services/update-service', 
+                    {   service: service,
+                        wilayas: wilayas,
+                        communes : communes,
+                        errors: req.flash('errors'),
+                        message: req.flash('info')
+                    })
+                }else{
+                    console.log(err)
+                }
             })
-        }else{
-            console.log(err)
-        }
+          }
+       })
+       
         
     })
+})
+
+router.post('/update', (req, res) => {
+    res.send("updated")
 })
 module.exports = router;
