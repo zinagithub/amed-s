@@ -195,7 +195,48 @@ const errors = validationResult(req);
    
 })
 
+router.get('/dashboard',isAuthenticated, (req,res) => {
+
+    Service.findOne({user_id: req.user.id}, (err, service)=> {
+        console.log(service)
+        if(!err){
+            res.render('services/dashboard', { service: service })
+        }else{
+            console.log(err)
+        }
+        
+    })
+    
+})
+
+router.get('/edit/:id',(req, res) =>{
+    Service.findOne({_id: req.params.id}, (err, service)=> {
+        if(!err){
+            res.render('services/edit-service', 
+            { service: service,
+             errors: req.flash('errors'),
+             message: req.flash('info')
+            })
+        }else{
+            console.log(err)
+        }
+        
+    })
+})
 
 
-
+router.get('/update/:id',(req, res) =>{
+    Service.findOne({_id: req.params.id}, (err, service)=> {
+        if(!err){
+            res.render('services/update-service', 
+            { service: service,
+                errors: req.flash('errors'),
+                message: req.flash('info')
+            })
+        }else{
+            console.log(err)
+        }
+        
+    })
+})
 module.exports = router;

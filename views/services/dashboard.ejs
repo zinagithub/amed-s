@@ -1,0 +1,27 @@
+<%- include('../partials/header'); -%>
+<%- include('../partials/navbar'); -%>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-9 offset-md-1 ">
+            <div class="card">
+                
+                <div class="card-body">
+                    <% if (service.avatar) {%>  
+                     <img src="<%= '/images/'+service.avatar; %>" alt="" width="50" height="50">  
+                     <% }else  {%>
+                        <img src="/images/profile.png" alt="" width="50" height="50">
+                     <% } %>    
+                  <h5 class="card-title"><%= service.nom %> <%= service.prenom %></h5>
+
+                  <p><span class="badge badge-secondary"><%= service.created_at.toDateString() %></span></p>
+                  <p class="card-text"><%= service.specialite %></p>
+                  
+                  <a href="<%= '/services/update/'+service.id ; %>" class="btn btn-primary">Update</a>
+                  <button class="btn btn-danger" onclick="deleteService()" id="deleteBtn" data-id="<%= service.id %>">Delete</button>
+                </div>
+              </div>
+              </div>
+        </div>
+    </div>
+
+<%- include('../partials/footer'); -%>
