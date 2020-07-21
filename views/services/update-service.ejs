@@ -13,15 +13,9 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="wilaya">Wilaya</label>
-                    <select name ="commune" class="form-control" >
-                        <% wilayas.forEach(wil => { %>  
-                            <% if (wil.nomwilaya == service.wilaya) {%> 
-                                <option value=<%= wil.nomwilaya %> selected><%= wil.wilaya %></option>
-                            <% }else {%>         
-                                <option value=<%= wil.nomwilaya %>><%= wil.wilaya %></option>  
-                            <% }%>
-                        <% });%>      
-                        </select>
+                    <input type="hidden" class="form-control" id="wilaya_id" name="wilaya_id" value="<%= wilayas._id %>" >
+                    <input type="text" class="form-control" name = "wilaya" value= "<%= wilayas.nomwilaya %>" disabled>
+                    
                 </div>
                 <div class="form-group col-md-6">
                     <label for="commune">Commune</label>
@@ -29,9 +23,9 @@
                     <select name ="commune" class="form-control" >
                     <% communes.forEach(com => { %>
                         <% if (com.nomcommune == service.commune) {%> 
-                            <option value=<%= com._id %> selected><%= com.nomcommune %></option>
+                            <option value="<%= com._id %>" selected><%= com.nomcommune %></option>
                         <% }else {%>    
-                            <option value=<%= com._id %>><%= com.nomcommune %></option>  
+                            <option value="<%= com._id %>"><%= com.nomcommune %></option>  
                         <% }%>    
                     <% });%>      
                     </select>
@@ -71,42 +65,42 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="nom">Nom</label>
-                    <input type="text" class="form-control" id="nom" name="nom" value = <%= service.nom %>>
+                    <input type="text" class="form-control" id="nom" name="nom" value = "<%= service.nom %>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="prenom">Prenom</label>
-                    <input type="text" class="form-control" id="prenom" name="prenom" value = <%= service.prenom %>>
+                    <input type="text" class="form-control" id="prenom" name="prenom" value = "<%= service.prenom %>">
                 </div>
             </div>
      
             <div class="form-group">
                 <label for="adresse">Adresse</label>
-                <input type="text" class="form-control" id="adresse" name="adresse" value = <%= service.Adresse %>>
+                <input type="text" class="form-control" id="adresse" name="adresse" value = "<%= service.adresse %>" >
             </div>
             
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="tel">Téléphone</label>
-                    <input type="text" class="form-control" id="tel" name="tel" value = <%= service.telephone %>>
+                    <input type="text" class="form-control" id="tel" name="tel" value = "<%= service.telephone %>" >
                 </div>
                 <div class="form-group col-md-6">
                     <label for="mobile">Mobile</label>
-                    <input type="text" class="form-control" id="mobile" name="mobile" value = <%= service.mobile %>>
+                    <input type="text" class="form-control" id="mobile" name="mobile" value = "<%= service.mobile %>">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="site">Site Web</label>
-                    <input type="text" class="form-control" id="site" name="site" value = <%= service.siteweb %>>
+                    <input type="text" class="form-control" id="site" name="site" value = <%= service.siteWeb %> >
                 </div>
                 <div class="form-group col-md-4">
                     <label for="facebook">Facebook</label>
-                    <input type="text" class="form-control" id="facebook" name="facebook" value = <%= service.facebook %>>
+                    <input type="text" class="form-control" id="facebook" name="facebook" value = "<%= service.facebook %>">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="twitter">Twitter</label>
-                    <input type="text" class="form-control" id="twitter" name="twitter" value = <%= service.twitter %>>
+                    <input type="text" class="form-control" id="twitter" name="twitter" value = "<%= service.twitter %>">
                 </div>
             </div>
             

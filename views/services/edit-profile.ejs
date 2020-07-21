@@ -1,0 +1,25 @@
+<%- include('../partials/header'); -%>
+<%- include('../partials/navbar'); -%>
+
+<div class="container">
+    <div class="row mt-3 "> 
+            <div class="col-sm-6 col-md-4">
+                <div class="card">
+                    
+                    <div class="card-body">
+                        <% if (service.avatar) {%>  
+                         <img src="<%= '/images/'+service.avatar; %>" alt="" width="50" height="50">  
+                         <% }else  {%>
+                            <img src="/images/profile.png" alt="" width="50" height="50">
+                         <% } %>    
+                      <h5 class="card-title"><%= service.nom %> <%= service.prenom %></h5>
+                      <p class="card-text"><%= service.description %></p>
+                      <p class="card-text"><%= service.specialite %></p>
+                    </div>
+                </div>
+            </div> 
+
+    </div>
+</div>
+
+<%- include('../partials/footer'); -%>

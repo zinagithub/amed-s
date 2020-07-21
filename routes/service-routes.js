@@ -57,7 +57,7 @@ router.post("/show-doctors/:pageNo?", (req,res)=> {
 
     }).then ((response)=>{
         totalDocs = parseInt(response);
-    Service.find({genre:"Medecin", wilaya: infowil[1]},{},q, (err,services) => {
+    Service.find({genre:"Medecin", wilaya: infowil[0]},{},q, (err,services) => {
         let arrServices = [];
         let arrSize = 3;
         for(var i = 0;i < services.length; i+=arrSize) {
@@ -161,11 +161,11 @@ const errors = validationResult(req);
         if (req.body.service != 'Medecin'){
             req.body.spec = ""
         }
-         let newService = new Service({
+        let newService = new Service({
         nom: req.body.nom,
         prenom: req.body.prenom,
         adresse: req.body.adresse,
-        wilaya: req.body.wilaya,
+        wilaya: req.body.wilaya_id,
         commune: req.body.commune,
         telephone: req.body.tel,
         mobile: req.body.mobile,
@@ -199,7 +199,7 @@ const errors = validationResult(req);
 router.get('/dashboard',isAuthenticated, (req,res) => {
 
     Service.findOne({user_id: req.user.id}, (err, service)=> {
-        console.log(service)
+        //console.log(service)
         if(!err){
             res.render('services/dashboard', { service: service })
         }else{
@@ -228,14 +228,16 @@ router.get('/edit/:id',(req, res) =>{
 
 router.get('/update/:id',(req, res) =>{
     Service.findOne({_id: req.params.id}, (err, service)=> {
-        
-       Wilayas.find({}, (err,wilayas) => {
+    if (!err){ 
+       Wilayas.findOne({_id: service.wilaya}, (err,wilaya) => {
+           //console.log(wilaya)
           if (!err){
-            Communes.find({}, (err,communes) => {
+            Communes.find({refwil: service.wilaya}, (err,communes) => {
+                //console.log(communes)
                 if(!err){
                     res.render('services/update-service', 
                     {   service: service,
-                        wilayas: wilayas,
+                        wilayas: wilaya,
                         communes : communes,
                         errors: req.flash('errors'),
                         message: req.flash('info')
@@ -246,12 +248,76 @@ router.get('/update/:id',(req, res) =>{
             })
           }
        })
-       
+    }   
         
     })
 })
 
-router.post('/update', (req, res) => {
-    res.send("updated")
+router.post('/update', isAuthenticated, [
+    body('nom').isLength({min: 3}).withMessage('Name should be more than 3'),
+    body('prenom').isLength({min: 3}).withMessage('Prenom should be more than 3'),
+    body('adresse').isLength({min: 5}).withMessage('Adresse should be more than 5'),
+    body('tel').isLength({min: 5}).withMessage('telephone should be more than 5'),
+    body('mobile').isLength({min: 5}).withMessage('mobile should be more than 5'),
+] ,(req, res) => {
+    const errors = validationResult(req);
+    //console.log(errors)
+    if (!errors.isEmpty()) {
+      
+     req.flash('errors', errors.array())
+     
+     
+     res.redirect('/services/update/' + req.body.id)
+     
+      
+    }else {
+        if (req.body.service != 'Medecin'){
+            req.body.spec = ""
+        }
+        let newFields = {
+            nom: req.body.nom,
+            prenom: req.body.prenom,
+            adresse: req.body.adresse,
+            wilaya: req.body.wilaya_id,
+            commune: req.body.commune,
+            telephone: req.body.tel,
+            mobile: req.body.mobile,
+            siteWeb: req.body.site,
+            facebook: req.body.facebook,
+            twitter: req.body.twitter,
+            description: req.body.description,
+            specialite: req.body.spec,
+            genre: req.body.service,
+            user_id: req.user.id,
+            avatar:req.user.avatar,
+            created_at: Date.now()
+     }
+     let query = {_id: req.body.id}
+ 
+     Service.updateOne(query, newFields, (err)=> {
+         if(!err) {
+             req.flash('info', " The event was updated successfuly"),
+             res.redirect('/services/dashboard')
+         } else {
+             console.log(err)
+         }
+     })
+    }    
+})
+
+router.get('/editProfile/:id',(req, res) =>{
+    Service.findOne({_id: req.params.id}, (err, service)=> {
+        if(!err){
+            res.render('services/edit-profile', 
+            { service: service,
+             /*eventDate: moment(event.date).format('YYYY-MM-DD'), */
+             errors: req.flash('errors'),
+             message: req.flash('info')
+            })
+        }else{
+            console.log(err)
+        }
+        
+    })
 })
 module.exports = router;
