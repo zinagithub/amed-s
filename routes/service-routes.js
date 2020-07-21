@@ -320,4 +320,17 @@ router.get('/editProfile/:id',(req, res) =>{
         
     })
 })
+router.delete('/delete/:id', (req,res)=> {
+
+    let query = {_id: req.params.id}
+
+    Service.deleteOne(query, (err)=> {
+
+        if(!err) {
+            res.status(200).json('deleted')
+        } else {
+            res.status(404).json('There was an error .event was not deleted')
+        }
+    })
+})
 module.exports = router;
