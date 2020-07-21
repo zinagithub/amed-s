@@ -44,8 +44,18 @@
           <a class="nav-link" href="/users/signup">Register</a>
         </li>
         <% } else {%>  
-          <li class="nav-item">
-            <a class="nav-link" href="/users/logout"><%= locals.user.email+" " %> Logout</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src= <%= '/images/'+user.avatar %> alt="<%= locals.user.email %>" width="40" height="40" class="rounded-circle">
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href=""> <%= locals.user.email %></a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/users/profile">Profile</a>
+              <a class="dropdown-item" href="/users/logout">Logout</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
           </li>
           <% } %>
       </ul>
