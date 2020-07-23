@@ -333,4 +333,8 @@ router.delete('/delete/:id', (req,res)=> {
         }
     })
 })
+
+router.get('/calendar', (req,res)=> {
+    res.render('services/calendar')
+} )
 module.exports = router;
