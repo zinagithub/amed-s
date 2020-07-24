@@ -2,13 +2,21 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.mycontainer {
-  position: relative;
+
+.sectionwrap {
+  background: url('../images/image2.jpg');
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center;
+  width:100%;
+  height: 500px;
+  position:relative
 }
 
 
+
 .overlay {
-  position: absolute; 
+ position: absolute; 
   bottom: 0; 
   background: rgb(0, 0, 0);
   background: rgba(0, 0, 0, 0.5); /* Black see-through */
@@ -21,10 +29,11 @@
   font-size: 20px;
   padding: 10px;
   text-align: center;
+  left: 0;
   z-index: 99;
 }
 
-.mycontainer:hover .overlay {
+.sectionwrap:hover .overlay {
   opacity: 1;
 }
 
@@ -39,7 +48,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    width: 50%;
+    width: 70%;
     margin: 50px auto;
     padding: 20px;
     text-align: center;
@@ -62,11 +71,11 @@
   padding-left: 2.375rem;
 }
 
-  @media screen and (max-width: 700px){
+  @media screen and (max-width: 900px){
     .bg-text {
       /*position: relative;*/
       
-       width: 65%;
+       width: 100%;
     } 
     
   }
