@@ -82,3 +82,32 @@
 .font1 {
     font-size: 2vh;
 }
+#footer .footer-info {
+  padding: 0;
+}
+#footer {
+  position: relative;
+  padding-top: 35px;
+  padding-bottom: 20px;
+  background-color: /*#2c3e50*/#17a2b8;
+  color: #fff;
+  overflow: hidden;
+}
+#footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#footer a {
+  color: #cdcdcd;
+  text-overflow: ellipsis;
+}
+a:link, a:visited {
+  text-decoration: none;
+}
+@media (min-width: 768px)
+{
+  #footer #upper-section {
+    height: 200px;
+}
+}

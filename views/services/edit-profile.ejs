@@ -12,9 +12,13 @@
                          <% }else  {%>
                             <img src="/images/profile.png" alt="" width="50" height="50">
                          <% } %>    
-                      <h5 class="card-title"><%= service.nom %> <%= service.prenom %></h5>
-                      <p class="card-text"><%= service.description %></p>
-                      <p class="card-text"><%= service.specialite %></p>
+                      <p class="card-title">Nom & Prénom: <%= service.nom %> <%= service.prenom %></p>
+                      <p class="card-text">Adresse: <%= service.adresse %></p>
+                      <p class="card-text">Spécialité: <%= service.specialite %></p>
+                      <p class="card-text">Téléphone: <%= service.telephone %> </p>
+                      <p class="card-text">Mobile: <%= service.mobile %> </p>
+                      <p class="card-text">Description: <%= service.description %></p>
+                      
                     </div>
                 </div>
             </div> 

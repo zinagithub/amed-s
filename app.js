@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
     res.render("index");
 } )*/
 
-const Port = 3000;
+const Port = process.env.PORT || 3000;
 app.listen(Port, (req,res) => {
     console.log('Application is running at 3000 port!')
 })
